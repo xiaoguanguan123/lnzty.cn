@@ -3,361 +3,479 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>知足亭代码分享网 - 函数实际作用演示</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>知足亭分享网 - 发现精彩视频</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
         }
         
         :root {
-            --primary-color: #3498db;
-            --secondary-color: #2ecc71;
-            --accent-color: #e74c3c;
-            --dark-color: #2c3e50;
-            --light-color: #ecf0f1;
-            --text-color: #34495e;
-            --border-radius: 8px;
-            --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
+            --primary-color: #ff4757;
+            --secondary-color: #2ed573;
+            --dark-color: #2f3542;
+            --light-color: #f1f2f6;
+            --text-color: #2f3542;
+            --text-light: #747d8c;
         }
         
         body {
-            background-color: #f5f7fa;
+            background-color: #f5f6fa;
             color: var(--text-color);
             line-height: 1.6;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* 头部样式 */
+        /* 导航栏样式 */
         header {
-            background: linear-gradient(135deg, var(--dark-color), var(--primary-color));
-            color: white;
-            padding: 20px 0;
-            box-shadow: var(--box-shadow);
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         
-        .header-content {
+        .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
         }
         
         .logo {
             display: flex;
             align-items: center;
-            gap: 15px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
         }
         
-        .logo-icon {
-            font-size: 32px;
+        .logo i {
+            margin-right: 0.5rem;
+            font-size: 1.8rem;
         }
         
-        .logo h1 {
-            font-size: 28px;
-            font-weight: 700;
+        .search-bar {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 2rem;
+            position: relative;
         }
         
-        .logo span {
-            color: var(--secondary-color);
+        .search-bar input {
+            width: 100%;
+            padding: 0.7rem 1rem 0.7rem 2.5rem;
+            border-radius: 30px;
+            border: 1px solid #ddd;
+            outline: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
         }
         
-        nav ul {
+        .search-bar i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+        }
+        
+        .search-bar input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(255, 71, 87, 0.2);
+        }
+        
+        .nav-links {
             display: flex;
-            list-style: none;
-            gap: 25px;
+            align-items: center;
         }
         
-        nav a {
-            color: white;
+        .nav-links a {
+            margin-left: 1.5rem;
+            color: var(--text-color);
             text-decoration: none;
             font-weight: 500;
-            padding: 8px 15px;
-            border-radius: var(--border-radius);
-            transition: var(--transition);
+            transition: color 0.3s;
         }
         
-        nav a:hover, nav a.active {
-            background-color: rgba(255, 255, 255, 0.2);
+        .nav-links a:hover {
+            color: var(--primary-color);
         }
         
-        .search-box {
+        .user-actions {
             display: flex;
-            background: white;
+            align-items: center;
+        }
+        
+        .btn {
+            padding: 0.5rem 1.2rem;
             border-radius: 30px;
-            overflow: hidden;
-            padding: 5px;
-        }
-        
-        .search-box input {
             border: none;
-            padding: 10px 15px;
-            width: 250px;
-            outline: none;
-            font-size: 16px;
-        }
-        
-        .search-box button {
-            background: var(--secondary-color);
-            border: none;
-            color: white;
-            padding: 10px 20px;
             cursor: pointer;
-            transition: var(--transition);
+            font-weight: 500;
+            transition: all 0.3s;
         }
         
-        .search-box button:hover {
-            background: #27ae60;
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
         }
         
-        /* 主要内容区 */
-        .main-content {
+        .btn-primary:hover {
+            background-color: #ff2e43;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            margin-right: 1rem;
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(255, 71, 87, 0.1);
+        }
+        
+        /* 主要内容区域 */
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 5%;
+        }
+        
+        .section-title {
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .section-title h2 {
+            font-size: 1.5rem;
+        }
+        
+        .section-title a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        /* 视频网格 */
+        .video-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin: 40px 0;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
         }
         
-        @media (max-width: 900px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        /* 视频播放器样式 */
-        .video-section {
-            background: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
+        .video-card {
+            background-color: white;
+            border-radius: 10px;
             overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .video-thumbnail {
+            position: relative;
+            height: 160px;
+            overflow: hidden;
+        }
+        
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .video-card:hover .video-thumbnail img {
+            transform: scale(1.05);
+        }
+        
+        .video-duration {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        
+        .video-info {
+            padding: 1rem;
+        }
+        
+        .video-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+        
+        .creator-info {
+            display: flex;
+            align-items: center;
+            margin-top: 0.8rem;
+        }
+        
+        .creator-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            object-fit: cover;
+        }
+        
+        .creator-name {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        .follow-btn {
+            margin-left: auto;
+            background: none;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 0.2rem 0.7rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .follow-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .followed {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        /* 创作者推荐 */
+        .creators-section {
+            margin-bottom: 3rem;
+        }
+        
+        .creators-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .creator-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .creator-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .creator-card-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            border: 3px solid var(--light-color);
+        }
+        
+        .creator-card-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .creator-card-stats {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        
+        /* 视频播放器模态框 */
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            position: relative;
+            max-width: 1200px;
+            margin: 2rem auto;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            animation: modalFadeIn 0.3s;
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: background-color 0.3s;
+        }
+        
+        .close-btn:hover {
+            background-color: rgba(0, 0, 0, 0.9);
         }
         
         .video-player {
             width: 100%;
-            background: #000;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 宽高比 */
             position: relative;
+            background-color: #000;
         }
         
-        .video-player video {
+        .video-player iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            display: block;
-        }
-        
-        .video-controls {
-            display: flex;
-            padding: 15px;
-            background: #f8f9fa;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .video-info {
-            padding: 20px;
-        }
-        
-        .video-info h2 {
-            margin-bottom: 10px;
-            color: var(--dark-color);
-        }
-        
-        .video-info p {
-            color: #7f8c8d;
-            margin-bottom: 15px;
-        }
-        
-        .function-list {
-            margin-top: 20px;
-        }
-        
-        .function-item {
-            padding: 12px 15px;
-            background: #f8f9fa;
-            border-left: 4px solid var(--primary-color);
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .function-item:hover {
-            background: #e9ecef;
-            transform: translateX(5px);
-        }
-        
-        .function-item.active {
-            background: #e3f2fd;
-            border-left-color: var(--accent-color);
-        }
-        
-        .function-item h3 {
-            font-size: 16px;
-            margin-bottom: 5px;
-        }
-        
-        .function-item p {
-            font-size: 14px;
-            color: #7f8c8d;
-        }
-        
-        /* 代码展示区样式 */
-        .code-section {
-            background: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            overflow: hidden;
-        }
-        
-        .code-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            background: var(--dark-color);
-            color: white;
-        }
-        
-        .code-actions button {
-            background: rgba(255, 255, 255, 0.2);
+            height: 100%;
             border: none;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 4px;
-            margin-left: 10px;
-            cursor: pointer;
-            transition: var(--transition);
         }
         
-        .code-actions button:hover {
-            background: rgba(255, 255, 255, 0.3);
+        .video-details {
+            padding: 1.5rem;
         }
         
-        .code-content {
-            padding: 20px;
-            background: #2d2d2d;
-            color: #f8f8f2;
-            font-family: 'Courier New', monospace;
-            overflow-x: auto;
-            max-height: 500px;
-            overflow-y: auto;
+        .video-details-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
         }
         
-        pre {
-            margin: 0;
-            line-height: 1.5;
+        .video-details-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
         }
         
-        .code-explanation {
-            padding: 20px;
+        .video-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .video-stats {
+            display: flex;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .video-stats span {
+            margin-right: 1rem;
+        }
+        
+        .video-description {
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .video-creator {
+            display: flex;
+            align-items: center;
+            padding-top: 1rem;
             border-top: 1px solid #eee;
         }
         
-        .code-explanation h3 {
-            margin-bottom: 10px;
-            color: var(--dark-color);
+        .video-creator-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            object-fit: cover;
         }
         
-        /* 代码高亮样式 */
-        .keyword { color: #f92672; }
-        .function { color: #66d9ef; }
-        .string { color: #e6db74; }
-        .comment { color: #75715e; }
-        .number { color: #ae81ff; }
-        .variable { color: #a6e22e; }
-        
-        /* 分享卡片区域 */
-        .section-title {
-            font-size: 24px;
-            margin: 40px 0 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--primary-color);
-            color: var(--dark-color);
+        .video-creator-info {
+            flex: 1;
         }
         
-        .share-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 50px;
+        .video-creator-name {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
         }
         
-        .share-card {
-            background: white;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: var(--box-shadow);
-            transition: var(--transition);
+        .video-creator-followers {
+            color: var(--text-light);
+            font-size: 0.9rem;
         }
         
-        .share-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-        }
-        
-        .card-image {
-            height: 180px;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 50px;
-        }
-        
-        .card-content {
-            padding: 20px;
-        }
-        
-        .card-content h3 {
-            margin-bottom: 10px;
-            color: var(--dark-color);
-        }
-        
-        .card-content p {
-            color: #7f8c8d;
-            margin-bottom: 15px;
-            font-size: 14px;
-        }
-        
-        .card-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 15px;
-        }
-        
-        .tag {
-            background: #e0f7fa;
-            color: #006064;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-        }
-        
-        /* 页脚样式 */
+        /* 页脚 */
         footer {
-            background: var(--dark-color);
+            background-color: var(--dark-color);
             color: white;
-            padding: 40px 0 20px;
-            margin-top: 50px;
+            padding: 3rem 5%;
+            margin-top: 3rem;
         }
         
         .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
+            gap: 2rem;
         }
         
         .footer-column h3 {
-            font-size: 18px;
-            margin-bottom: 20px;
-            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
         }
         
         .footer-column ul {
@@ -365,1218 +483,539 @@
         }
         
         .footer-column ul li {
-            margin-bottom: 10px;
+            margin-bottom: 0.8rem;
         }
         
-        .footer-column a {
-            color: #bdc3c7;
+        .footer-column ul li a {
+            color: #a4b0be;
             text-decoration: none;
-            transition: var(--transition);
+            transition: color 0.3s;
         }
         
-        .footer-column a:hover {
+        .footer-column ul li a:hover {
             color: white;
         }
         
         .copyright {
             text-align: center;
-            padding-top: 20px;
-            margin-top: 30px;
-            border-top: 1px solid #34495e;
-            color: #95a5a6;
-            font-size: 14px;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #a4b0be;
+            font-size: 0.9rem;
         }
         
         /* 响应式设计 */
         @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 20px;
-            }
-            
-            nav ul {
+            .navbar {
                 flex-wrap: wrap;
-                justify-content: center;
             }
             
-            .search-box input {
-                width: 200px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- 头部区域 -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <div class="logo-icon"><i class="fas fa-code"></i></div>
-                    <h1>知足亭<span>代码分享网</span></h1>
-                </div>
-                
-                <nav>
-                    <ul>
-                        <li><a href="#" class="active">首页</a></li>
-                        <li><a href="#">视频教程</a></li>
-                        <li><a href="#">代码库</a></li>
-                        <li><a href="#">函数手册</a></li>
-                        <li><a href="#">关于我们</a></li>
-                    </ul>
-                </nav>
-                
-                <div class="search-box">
-                    <input type="text" placeholder="搜索代码或函数...">
-                    <button><i class="fas fa-search"></i></button>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <div class="container">
-        <!-- 视频与代码区域 -->
-        <div class="main-content">
-            <!-- 视频区域 -->
-            <div class="video-section">
-                <div class="video-player">
-                    <!-- 这里使用视频占位符，实际项目中替换为真实视频 -->
-                    <div style="background:#000; color:#fff; height:300px; display:flex; align-items:center; justify-content:center; font-size:18px;">
-                        <i class="fas fa-play-circle" style="font-size:48px; margin-right:15px;"></i>
-                        函数实际作用演示视频
-                    </div>
-                </div>
-                <div class="video-controls">
-                    <button><i class="fas fa-play"></i> 播放</button>
-                    <button><i class="fas fa-pause"></i> 暂停</button>
-                    <button><i class="fas fa-volume-up"></i> 音量</button>
-                    <button><i class="fas fa-expand"></i> 全屏</button>
-                </div>
-                <div class="video-info">
-                    <h2>JavaScript数组处理函数详解</h2>
-                    <p>本视频详细介绍了JavaScript中常用的数组处理函数，包括map、filter、reduce等的实际应用场景和用法。</p>
-                    
-                    <div class="function-list">
-                        <div class="function-item active">
-                            <h3>map() 函数</h3>
-                            <p>对数组中的每个元素执行指定操作，并返回新数组</p>
-                        </div>
-                        <div class="function-item">
-                            <h3>filter() 函数</h3>
-                            <p>根据条件筛选数组元素，返回符合条件的新数组</p>
-                        </div>
-                        <div class="function-item">
-                            <h3>reduce() 函数</h3>
-                            <p>将数组元素通过函数累积为单个值</p>
-                        </div>
-                        <div class="function-item">
-                            <h3>forEach() 函数</h3>
-                            <p>对数组的每个元素执行一次提供的函数</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 代码区域 -->
-            <div class="code-section">
-                <div class="code-header">
-                    <h3>map-function.js</h3>
-                    <div class="code-actions">
-                        <button><i class="far fa-copy"></i> 复制</button>
-                        <button><i class="far fa-star"></i> 收藏</button>
-                    </div>
-                </div>
-                <div class="code-content">
-                    <pre><code>// map() 函数示例
-// 对数组中的每个元素执行指定操作，返回新数组
-
-<span class="keyword">const</span> <span class="variable">numbers</span> = [1, 2, 3, 4, 5];
-
-<span class="comment">// 将每个数字乘以2</span>
-<span class="keyword">const</span> <span class="variable">doubled</span> = <span class="variable">numbers</span>.<span class="function">map</span>(<span class="keyword">function</span>(<span class="variable">num</span>) {
-  <span class="keyword">return</span> <span class="variable">num</span> * 2;
-});
-
-<span class="comment">// 使用箭头函数简化</span>
-<span class="keyword">const</span> <span class="variable">doubledArrow</span> = <span class="variable">numbers</span>.<span class="function">map</span>(<span class="variable">num</span> => <span class="variable">num</span> * 2);
-
-<span class="variable">console</span>.<span class="function">log</span>(<span class="variable">doubled</span>); <span class="comment">// 输出: [2, 4, 6, 8, 10]</span>
-
-<span class="comment">// 从对象数组中提取特定属性</span>
-<span class="keyword">const</span> <span class="variable">users</span> = [
-  { <span class="variable">name</span>: <span class="string">'张三'</span>, <span class="variable">age</span>: <span class="number">25</span> },
-  { <span class="variable">name</span>: <span class="string">'李四'</span>, <span class="variable">age</span>: <span class="number">30</span> },
-  { <span class="variable">name</span>: <span class="string">'王五'</span>, <span class="variable">age</span>: <span class="number">28</span> }
-];
-
-<span class="keyword">const</span> <span class="variable">userNames</span> = <span class="variable">users</span>.<span class="function">map</span>(<span class="variable">user</span> => <span class="variable">user</span>.<span class="variable">name</span>);
-<span class="variable">console</span>.<span class="function">log</span>(<span class="variable">userNames</span>); <span class="comment">// 输出: ["张三", "李四", "王五"]</span>
-
-<span class="comment">// 将数字数组转换为字符串数组</span>
-<span class="keyword">const</span> <span class="variable">stringNumbers</span> = <span class="variable">numbers</span>.<span class="function">map</span>(<span class="variable">num</span> => <span class="variable">num</span>.<span class="function">toString</span>());
-<span class="variable">console</span>.<span class="function">log</span>(<span class="variable">stringNumbers</span>); <span class="comment">// 输出: ["1", "2", "3", "4", "5"]</span></code></pre>
-                </div>
-                <div class="code-explanation">
-                    <h3>函数说明</h3>
-                    <p>map() 函数是JavaScript数组的高阶函数，它创建一个新数组，其结果是该数组中的每个元素调用一次提供的函数后的返回值。</p>
-                    <p><strong>参数：</strong>回调函数，该函数接收三个参数（当前元素，当前索引，原数组）</p>
-                    <p><strong>返回值：</strong>一个新数组，每个元素都是回调函数的结果</p>
-                </div>
-            </div>
-        </div>
-        
-        <!-- 更多分享 -->
-        <h2 class="section-title">更多代码分享</h2>
-        <div class="share-grid">
-            <div class="share-card">
-                <div class="card-image">
-                    <i class="fab fa-js-square"></i>
-                </div>
-                <div class="card-content">
-                    <h3>JavaScript闭包详解</h3>
-                    <p>深入理解JavaScript闭包的概念、应用场景和实际用例，包含多个实用示例。</p>
-                    <div class="card-tags">
-                        <span class="tag">JavaScript</span>
-                        <span class="tag">闭包</span>
-                        <span class="tag">高级特性</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="share-card">
-                <div class="card-image">
-                    <i class="fab fa-python"></i>
-                </div>
-                <div class="card-content">
-                    <h3>Python数据可视化</h3>
-                    <p>使用Matplotlib和Seaborn库创建专业的数据可视化图表，包含完整代码示例。</p>
-                    <div class="card-tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">数据可视化</span>
-                        <span class="tag">数据分析</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="share-card">
-                <div class="card-image">
-                    <i class="fas fa-database"></i>
-                </div>
-                <div class="card-content">
-                    <h3>SQL优化技巧</h3>
-                    <p>提高数据库查询性能的实用SQL优化技巧，包含索引使用和查询优化策略。</p>
-                    <div class="card-tags">
-                        <span class="tag">SQL</span>
-                        <span class="tag">数据库</span>
-                        <span class="tag">性能优化</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 页脚区域 -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>关于知足亭</h3>
-                    <p>知足亭代码分享网是一个专注于编程学习和代码分享的平台，提供高质量的视频教程和代码示例。</p>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>快速链接</h3>
-                    <ul>
-                        <li><a href="#">首页</a></li>
-                        <li><a href="#">视频教程</a></li>
-                        <li><a href="#">代码库</a></li>
-                        <li><a href="#">函数手册</a></li>
-                        <li><a href="#">关于我们</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>联系我们</h3>
-                    <ul>
-                        <li><i class="fas fa-envelope"></i> contact@zhizuting.com</li>
-                        <li><i class="fas fa-phone"></i> 400-123-4567</li>
-                        <li><i class="fas fa-map-marker-alt"></i> 北京市海淀区知足亭路1号</li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>关注我们</h3>
-                    <ul>
-                        <li><a href="#"><i class="fab fa-weixin"></i> 微信公众号</a></li>
-                        <li><a href="#"><i class="fab fa-weibo"></i> 微博</a></li>
-                        <li><a href="#"><i class="fab fa-github"></i> GitHub</a></li>
-                        <li><a href="#"><i class="fab fa-bilibili"></i> B站</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="copyright">
-                <p>&copy; 2023 知足亭代码分享网 版权所有 | 京ICP备12345678号</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // 交互功能实现
-        document.addEventListener('DOMContentLoaded', function() {
-            // 函数列表点击事件
-            const functionItems = document.querySelectorAll('.function-item');
-            
-            functionItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    // 移除所有active类
-                    functionItems.forEach(i => i.classList.remove('active'));
-                    // 添加active类到当前项
-                    this.classList.add('active');
-                    
-                    // 在实际应用中，这里应该加载对应的代码和视频片段
-                    const functionName = this.querySelector('h3').textContent;
-                    alert(`切换到函数: ${functionName} 的演示`);
-                });
-            });
-            
-            // 搜索功能
-            const searchBtn = document.querySelector('.search-box button');
-            const searchInput = document.querySelector('.search-box input');
-            
-            searchBtn.addEventListener('click', performSearch);
-            searchInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    performSearch();
-                }
-            });
-            
-            function performSearch() {
-                if (searchInput.value.trim() !== '') {
-                    alert(`搜索: ${searchInput.value}`);
-                    // 实际应用中这里应该执行搜索操作
-                }
+            .search-bar {
+                order: 3;
+                margin: 1rem 0 0;
+                max-width: 100%;
             }
             
-            // 复制代码功能
-            const copyBtn = document.querySelector('.code-actions button:first-child');
-            copyBtn.addEventListener('click', function() {
-                // 在实际应用中，这里应该复制代码到剪贴板
-                alert('代码已复制到剪贴板');
-            });
+            .video-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
             
-            // 视频控制按钮功能
-            const playBtn = document.querySelector('.video-controls button:first-child');
-            playBtn.addEventListener('click', function() {
-                alert('开始播放视频');
-                // 实际应用中这里应该控制视频播放
-            });
-        });
-    </script>
-</body>
-</html>
-功能说明
-这个代码分享网站具有以下功能：
-视频介绍功能：
-视频播放控制（播放、暂停、音量、全屏）
-函数列表与视频内容联动
-代码展示功能：
-语法高亮显示
-代码复制功能
-函数详细说明
-用户交互功能：
-搜索功能
-响应式设计
-直观的导航系统
-内容组织：
-清晰的代码分类
-标签系统
-相关代码推荐
-使用说明
-点击左侧函数列表中的不同函数，可以查看对应的代码示例
-使用视频控制按钮可以控制视频播放
-点击"复制"按钮可以将代码复制到剪贴板
-使用搜索框可以搜索特定的函数或代码示例
-您可以直接复制上面的代码到HTML文件中运行，也可以根据需要进行修改和扩展。在实际应用中，您需要将视频占位符替换为真实的视频文件或视频链接。
-做一个局域网可以浏览的网站，并且是一个拥有专属网址的代码分享网，可以点开视频，可以搜索
-已深度思考(用时10秒)
-由于要求是局域网可浏览的网站，并且有专属网址，我们需要构建一个完整的网站，包括前端和简单的后端（如果需要有搜索功能，可能需要后端支持）。但考虑到题目要求，我们可以先构建一个静态网站，使用JavaScript实现前端搜索和视频播放功能。
-但是，由于是局域网专属网址，我们可能需要一个本地服务器来托管网站。这里我们提供一个完整的静态网站代码，包括HTML、CSS和JavaScript，可以放在局域网中的一台电脑上，通过IIS、Apache、Nginx或简单的Python HTTP服务器来运行。
-由于要求有搜索功能，我们将使用JavaScript实现前端搜索。同时，视频播放将使用HTML5的video标签。
-我们将构建一个简单的代码分享网站，包含以下页面：
-首页：展示代码分享列表，有搜索框
-代码详情页：展示代码详情，并可以播放相关视频
-但是，由于我们只要求一个页面，我们可以使用单页面应用（SPA）的方式，通过JavaScript动态加载内容。
-由于复杂度，我们将先构建一个简单的单页面，包含：
-顶部导航和搜索框
-代码分享列表
-每个代码分享项包含标题、描述、标签和视频链接
-点击代码分享项，可以打开一个模态框（或跳转到详情页）播放视频和展示代码
-但题目要求是拥有专属网址，我们可以通过路由来实现多个页面的效果，但为了简化，我们使用一个页面，通过hash或历史记录API来模拟多个页面。但考虑到时间，我们先做一个简单版本：只有一个页面，点击视频播放时，以模态框形式弹出。
-如果要求多个页面，我们可以使用多页面形式，但这里我们先按单页面实现。
-计划功能：
-首页列出所有代码分享
-顶部搜索框可以实时搜索
-每个项目有封面图、标题、描述、标签
-点击项目，弹出模态框，显示视频和代码详情
-由于是示例，视频我们使用占位符，代码为静态数据。
-我们将使用以下结构：
-index.html：主页面
-style.css：样式
-script.js：交互逻辑
-由于要求在一个文件中，我们可以将CSS和JS内联，但为了清晰，我们先分开写，最后再合并到一个HTML文件中。
-但是，题目要求一个HTML文件，所以我们将所有代码写在一个HTML文件中。
-开始编写代码：
-局域网代码分享网站设计方案
-我将为您创建一个可以在局域网中访问的代码分享网站，包含视频播放和搜索功能。这个网站可以部署在局域网服务器上，让局域网内的用户通过专属网址访问。
-设计思路
-响应式布局，适配不同设备
-左侧视频播放区，右侧代码展示区
-顶部全局搜索功能
-简洁现代的界面设计
-模拟局域网环境下的功能实现
-实现代码
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>知足亭代码分享网 - 局域网专享</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            .nav-links a {
+                margin-left: 1rem;
+            }
+            
+            .modal-content {
+                margin: 0;
+                border-radius: 0;
+                min-height: 100vh;
+            }
         }
         
-        :root {
-            --primary-color: #3498db;
-            --secondary-color: #2ecc71;
-            --accent-color: #e74c3c;
-            --dark-color: #2c3e50;
-            --light-color: #ecf0f1;
-            --text-color: #34495e;
-            --border-radius: 8px;
-            --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
-        }
-        
-        body {
-            background-color: #f5f7fa;
-            color: var(--text-color);
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* 头部样式 */
-        header {
-            background: linear-gradient(135deg, var(--dark-color), var(--primary-color));
-            color: white;
-            padding: 20px 0;
-            box-shadow: var(--box-shadow);
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .logo-icon {
-            font-size: 32px;
-        }
-        
-        .logo h1 {
-            font-size: 28px;
-            font-weight: 700;
-        }
-        
-        .logo span {
-            color: var(--secondary-color);
-        }
-        
-        .network-info {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 14px;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 25px;
-        }
-        
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 8px 15px;
-            border-radius: var(--border-radius);
-            transition: var(--transition);
-        }
-        
-        nav a:hover, nav a.active {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-        
-        .search-box {
-            display: flex;
-            background: white;
-            border-radius: 30px;
-            overflow: hidden;
-            padding: 5px;
-        }
-        
-        .search-box input {
-            border: none;
-            padding: 10px 15px;
-            width: 250px;
-            outline: none;
-            font-size: 16px;
-        }
-        
-        .search-box button {
-            background: var(--secondary-color);
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .search-box button:hover {
-            background: #27ae60;
-        }
-        
-        /* 主要内容区 */
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin: 40px 0;
-        }
-        
-        @media (max-width: 900px) {
-            .main-content {
+        @media (max-width: 480px) {
+            .video-grid {
                 grid-template-columns: 1fr;
             }
-        }
-        
-        /* 视频播放器样式 */
-        .video-section {
-            background: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            overflow: hidden;
-        }
-        
-        .video-player {
-            width: 100%;
-            background: #000;
-            position: relative;
-        }
-        
-        .video-player video {
-            width: 100%;
-            display: block;
-        }
-        
-        .video-controls {
-            display: flex;
-            padding: 15px;
-            background: #f8f9fa;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .video-info {
-            padding: 20px;
-        }
-        
-        .video-info h2 {
-            margin-bottom: 10px;
-            color: var(--dark-color);
-        }
-        
-        .video-info p {
-            color: #7f8c8d;
-            margin-bottom: 15px;
-        }
-        
-        .function-list {
-            margin-top: 20px;
-        }
-        
-        .function-item {
-            padding: 12px 15px;
-            background: #f8f9fa;
-            border-left: 4px solid var(--primary-color);
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .function-item:hover {
-            background: #e9ecef;
-            transform: translateX(5px);
-        }
-        
-        .function-item.active {
-            background: #e3f2fd;
-            border-left-color: var(--accent-color);
-        }
-        
-        .function-item h3 {
-            font-size: 16px;
-            margin-bottom: 5px;
-        }
-        
-        .function-item p {
-            font-size: 14px;
-            color: #7f8c8d;
-        }
-        
-        /* 代码展示区样式 */
-        .code-section {
-            background: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            overflow: hidden;
-        }
-        
-        .code-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            background: var(--dark-color);
-            color: white;
-        }
-        
-        .code-actions button {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 4px;
-            margin-left: 10px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .code-actions button:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-        
-        .code-content {
-            padding: 20px;
-            background: #2d2d2d;
-            color: #f8f8f2;
-            font-family: 'Courier New', monospace;
-            overflow-x: auto;
-            max-height: 500px;
-            overflow-y: auto;
-        }
-        
-        pre {
-            margin: 0;
-            line-height: 1.5;
-        }
-        
-        .code-explanation {
-            padding: 20px;
-            border-top: 1px solid #eee;
-        }
-        
-        .code-explanation h3 {
-            margin-bottom: 10px;
-            color: var(--dark-color);
-        }
-        
-        /* 代码高亮样式 */
-        .keyword { color: #f92672; }
-        .function { color: #66d9ef; }
-        .string { color: #e6db74; }
-        .comment { color: #75715e; }
-        .number { color: #ae81ff; }
-        .variable { color: #a6e22e; }
-        
-        /* 分享卡片区域 */
-        .section-title {
-            font-size: 24px;
-            margin: 40px 0 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--primary-color);
-            color: var(--dark-color);
-        }
-        
-        .share-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 50px;
-        }
-        
-        .share-card {
-            background: white;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: var(--box-shadow);
-            transition: var(--transition);
-        }
-        
-        .share-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-        }
-        
-        .card-image {
-            height: 180px;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 50px;
-        }
-        
-        .card-content {
-            padding: 20px;
-        }
-        
-        .card-content h3 {
-            margin-bottom: 10px;
-            color: var(--dark-color);
-        }
-        
-        .card-content p {
-            color: #7f8c8d;
-            margin-bottom: 15px;
-            font-size: 14px;
-        }
-        
-        .card-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 15px;
-        }
-        
-        .tag {
-            background: #e0f7fa;
-            color: #006064;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-        }
-        
-        /* 局域网提示 */
-        .local-network {
-            background: #e8f5e9;
-            border-left: 4px solid var(--secondary-color);
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 4px;
-        }
-        
-        /* 页脚样式 */
-        footer {
-            background: var(--dark-color);
-            color: white;
-            padding: 40px 0 20px;
-            margin-top: 50px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-        }
-        
-        .footer-column h3 {
-            font-size: 18px;
-            margin-bottom: 20px;
-            color: var(--secondary-color);
-        }
-        
-        .footer-column ul {
-            list-style: none;
-        }
-        
-        .footer-column ul li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-column a {
-            color: #bdc3c7;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-        
-        .footer-column a:hover {
-            color: white;
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            margin-top: 30px;
-            border-top: 1px solid #34495e;
-            color: #95a5a6;
-            font-size: 14px;
-        }
-        
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 20px;
-            }
             
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .search-box input {
-                width: 200px;
-            }
-            
-            .network-info {
+            .user-actions {
                 display: none;
             }
+            
+            .video-details-header {
+                flex-direction: column;
+            }
+            
+            .video-actions {
+                margin-top: 1rem;
+                align-self: flex-start;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- 头部区域 -->
+    <!-- 导航栏 -->
     <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <div class="logo-icon"><i class="fas fa-code"></i></div>
-                    <h1>知足亭<span>代码分享网</span></h1>
-                    <div class="network-info">
-                        <i class="fas fa-network-wired"></i> 局域网访问: code.zhizuting.local
-                    </div>
-                </div>
-                
-                <nav>
-                    <ul>
-                        <li><a href="#" class="active">首页</a></li>
-                        <li><a href="#">视频教程</a></li>
-                        <li><a href="#">代码库</a></li>
-                        <li><a href="#">函数手册</a></li>
-                        <li><a href="#">关于我们</a></li>
-                    </ul>
-                </nav>
-                
-                <div class="search-box">
-                    <input type="text" placeholder="搜索代码或函数..." id="searchInput">
-                    <button id="searchBtn"><i class="fas fa-search"></i></button>
-                </div>
+        <div class="navbar">
+            <a href="#" class="logo">
+                <i class="fas fa-mountain"></i>
+                <span>知足亭分享网</span>
+            </a>
+            
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="搜索视频、创作者...">
+            </div>
+            
+            <div class="nav-links">
+                <a href="#" class="active">首页</a>
+                <a href="#">发现</a>
+                <a href="#">关注</a>
+                <a href="#">消息</a>
+            </div>
+            
+            <div class="user-actions">
+                <button class="btn btn-outline">上传</button>
+                <button class="btn btn-primary">登录</button>
             </div>
         </div>
     </header>
 
+    <!-- 主要内容 -->
     <div class="container">
-        <!-- 局域网提示 -->
-        <div class="local-network">
-            <i class="fas fa-info-circle"></i> 欢迎访问知足亭代码分享网局域网版！当前访问地址: <strong>code.zhizuting.local</strong> 或 <strong>192.168.1.100</strong>
-        </div>
+        <!-- 推荐视频 -->
+        <section class="videos-section">
+            <div class="section-title">
+                <h2>推荐视频</h2>
+                <a href="#">查看更多 <i class="fas fa-chevron-right"></i></a>
+            </div>
+            
+            <div class="video-grid" id="videoGrid">
+                <!-- 视频卡片将通过JavaScript动态生成 -->
+            </div>
+        </section>
         
-        <!-- 视频与代码区域 -->
-        <div class="main-content">
-            <!-- 视频区域 -->
-            <div class="video-section">
-                <div class="video-player">
-                    <video id="mainVideo" width="100%" controls poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQwIiBoZWlnaHQ9IjM2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMzQzOTRkIi8+CiAgPHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNCIgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPuWbvueJh+Wksei0pTwvdGV4dD4KPC9zdmc+">
-                        <source src="#" type="video/mp4">
-                        您的浏览器不支持HTML5视频播放
-                    </video>
-                </div>
-                <div class="video-controls">
-                    <button id="playBtn"><i class="fas fa-play"></i> 播放</button>
-                    <button id="pauseBtn"><i class="fas fa-pause"></i> 暂停</button>
-                    <button id="volumeUp"><i class="fas fa-volume-up"></i> 音量+</button>
-                    <button id="volumeDown"><i class="fas fa-volume-down"></i> 音量-</button>
-                    <button id="fullscreenBtn"><i class="fas fa-expand"></i> 全屏</button>
-                </div>
-                <div class="video-info">
-                    <h2 id="videoTitle">JavaScript数组处理函数详解</h2>
-                    <p id="videoDescription">本视频详细介绍了JavaScript中常用的数组处理函数，包括map、filter、reduce等的实际应用场景和用法。</p>
-                    
-                    <div class="function-list">
-                        <div class="function-item active" data-video="map" data-title="JavaScript map() 函数详解" data-desc="详细介绍map()函数的用法和实际应用场景">
-                            <h3>map() 函数</h3>
-                            <p>对数组中的每个元素执行指定操作，并返回新数组</p>
-                        </div>
-                        <div class="function-item" data-video="filter" data-title="JavaScript filter() 函数详解" data-desc="详细介绍filter()函数的用法和实际应用场景">
-                            <h3>filter() 函数</h3>
-                            <p>根据条件筛选数组元素，返回符合条件的新数组</p>
-                        </div>
-                        <div class="function-item" data-video="reduce" data-title="JavaScript reduce() 函数详解" data-desc="详细介绍reduce()函数的用法和实际应用场景">
-                            <h3>reduce() 函数</h3>
-                            <p>将数组元素通过函数累积为单个值</p>
-                        </div>
-                        <div class="function-item" data-video="foreach" data-title="JavaScript forEach() 函数详解" data-desc="详细介绍forEach()函数的用法和实际应用场景">
-                            <h3>forEach() 函数</h3>
-                            <p>对数组的每个元素执行一次提供的函数</p>
-                        </div>
-                    </div>
-                </div>
+        <!-- 热门创作者 -->
+        <section class="creators-section">
+            <div class="section-title">
+                <h2>热门创作者</h2>
+                <a href="#">查看更多 <i class="fas fa-chevron-right"></i></a>
             </div>
             
-            <!-- 代码区域 -->
-            <div class="code-section">
-                <div class="code-header">
-                    <h3 id="codeFileName">map-function.js</h3>
-                    <div class="code-actions">
-                        <button id="copyBtn"><i class="far fa-copy"></i> 复制</button>
-                        <button id="favoriteBtn"><i class="far fa-star"></i> 收藏</button>
-                    </div>
-                </div>
-                <div class="code-content">
-                    <pre><code id="codeContent">// map() 函数示例
-// 对数组中的每个元素执行指定操作，返回新数组
-
-<span class="keyword">const</span> <span class="variable">numbers</span> = [1, 2, 3, 4, 5];
-
-<span class="comment">// 将每个数字乘以2</span>
-<span class="keyword">const</span> <span class="variable">doubled</span> = <span class="variable">numbers</span>.<span class="function">map</span>(<span class="keyword">function</span>(<span class="variable">num</span>) {
-  <span class="keyword">return</span> <span class="variable">num</span> * 2;
-});
-
-<span class="comment">// 使用箭头函数简化</span>
-<span class="keyword">const</span> <span class="variable">doubledArrow</span> = <span class="variable">numbers</span>.<span class="function">map</span>(<span class="variable">num</span> => <span class="variable">num</span> * 2);
-
-<span class="variable">console</span>.<span class="function">log</span>(<span class="variable">doubled</span>); <span class="comment">// 输出: [2, 4, 6, 8, 10]</span>
-
-<span class="comment">// 从对象数组中提取特定属性</span>
-<span class="keyword">const</span> <span class="variable">users</span> = [
-  { <span class="variable">name</span>: <span class="string">'张三'</span>, <span class="variable">age</span>: <span class="number">25</span> },
-  { <span class="variable">name</span>: <span class="string">'李四'</span>, <span class="variable">age</span>: <span class="number">30</span> },
-  { <span class="variable">name</span>: <span class="string">'王五'</span>, <span class="variable">age</span>: <span class="number">28</span> }
-];
-
-<span class="keyword">const</span> <span class="variable">userNames</span> = <span class="variable">users</span>.<span class="function">map</span>(<span class="variable">user</span> => <span class="variable">user</span>.<span class="variable">name</span>);
-<span class="variable">console</span>.<span class="function">log</span>(<span class="variable">userNames</span>); <span class="comment">// 输出: ["张三", "李四", "王五"]</span>
-
-<span class="comment">// 将数字数组转换为字符串数组</span>
-<span class="keyword">const</span> <span class="variable">stringNumbers</span> = <span class="variable">numbers</span>.<span class="function">map</span>(<span class="variable">num</span> => <span class="variable">num</span>.<span class="function">toString</span>());
-<span class="variable">console</span>.<span class="function">log</span>(<span class="variable">stringNumbers</span>); <span class="comment">// 输出: ["1", "2", "3", "4", "5"]</span></code></pre>
-                </div>
-                <div class="code-explanation">
-                    <h3>函数说明</h3>
-                    <p id="codeExplanation">map() 函数是JavaScript数组的高阶函数，它创建一个新数组，其结果是该数组中的每个元素调用一次提供的函数后的返回值。</p>
-                    <p><strong>参数：</strong>回调函数，该函数接收三个参数（当前元素，当前索引，原数组）</p>
-                    <p><strong>返回值：</strong>一个新数组，每个元素都是回调函数的结果</p>
-                </div>
+            <div class="creators-grid" id="creatorsGrid">
+                <!-- 创作者卡片将通过JavaScript动态生成 -->
             </div>
-        </div>
-        
-        <!-- 更多分享 -->
-        <h2 class="section-title">更多代码分享</h2>
-        <div class="share-grid" id="codeGrid">
-            <div class="share-card" data-category="javascript" data-tags="闭包,高级特性">
-                <div class="card-image">
-                    <i class="fab fa-js-square"></i>
-                </div>
-                <div class="card-content">
-                    <h3>JavaScript闭包详解</h3>
-                    <p>深入理解JavaScript闭包的概念、应用场景和实际用例，包含多个实用示例。</p>
-                    <div class="card-tags">
-                        <span class="tag">JavaScript</span>
-                        <span class="tag">闭包</span>
-                        <span class="tag">高级特性</span>
-                    </div>
-                </div>
+        </section>
+    </div>
+
+    <!-- 视频播放器模态框 -->
+    <div class="video-modal" id="videoModal">
+        <div class="modal-content">
+            <div class="close-btn" id="closeModal">
+                <i class="fas fa-times"></i>
             </div>
-            
-            <div class="share-card" data-category="python" data-tags="数据可视化,数据分析">
-                <div class="card-image">
-                    <i class="fab fa-python"></i>
-                </div>
-                <div class="card-content">
-                    <h3>Python数据可视化</h3>
-                    <p>使用Matplotlib和Seaborn库创建专业的数据可视化图表，包含完整代码示例。</p>
-                    <div class="card-tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">数据可视化</span>
-                        <span class="tag">数据分析</span>
-                    </div>
-                </div>
+            <div class="video-player" id="videoPlayer">
+                <!-- 视频播放器将通过JavaScript动态生成 -->
             </div>
-            
-            <div class="share-card" data-category="sql" data-tags="数据库,性能优化">
-                <div class="card-image">
-                    <i class="fas fa-database"></i>
-                </div>
-                <div class="card-content">
-                    <h3>SQL优化技巧</h3>
-                    <p>提高数据库查询性能的实用SQL优化技巧，包含索引使用和查询优化策略。</p>
-                    <div class="card-tags">
-                        <span class="tag">SQL</span>
-                        <span class="tag">数据库</span>
-                        <span class="tag">性能优化</span>
-                    </div>
-                </div>
+            <div class="video-details" id="videoDetails">
+                <!-- 视频详情将通过JavaScript动态生成 -->
             </div>
         </div>
     </div>
 
-    <!-- 页脚区域 -->
+    <!-- 页脚 -->
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>关于知足亭</h3>
-                    <p>知足亭代码分享网是一个专注于编程学习和代码分享的平台，提供高质量的视频教程和代码示例。</p>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>快速链接</h3>
-                    <ul>
-                        <li><a href="#">首页</a></li>
-                        <li><a href="#">视频教程</a></li>
-                        <li><a href="#">代码库</a></li>
-                        <li><a href="#">函数手册</a></li>
-                        <li><a href="#">关于我们</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>联系我们</h3>
-                    <ul>
-                        <li><i class="fas fa-envelope"></i> contact@zhizuting.com</li>
-                        <li><i class="fas fa-phone"></i> 400-123-4567</li>
-                        <li><i class="fas fa-map-marker-alt"></i> 北京市海淀区知足亭路1号</li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>关注我们</h3>
-                    <ul>
-                        <li><a href="#"><i class="fab fa-weixin"></i> 微信公众号</a></li>
-                        <li><a href="#"><i class="fab fa-weibo"></i> 微博</a></li>
-                        <li><a href="#"><i class="fab fa-github"></i> GitHub</a></li>
-                        <li><a href="#"><i class="fab fa-bilibili"></i> B站</a></li>
-                    </ul>
-                </div>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>关于知足亭</h3>
+                <ul>
+                    <li><a href="#">关于我们</a></li>
+                    <li><a href="#">加入我们</a></li>
+                    <li><a href="#">联系方式</a></li>
+                    <li><a href="#">帮助中心</a></li>
+                </ul>
             </div>
             
-            <div class="copyright">
-                <p>&copy; 2023 知足亭代码分享网 版权所有 | 局域网专享版 | 访问地址: code.zhizuting.local</p>
+            <div class="footer-column">
+                <h3>服务条款</h3>
+                <ul>
+                    <li><a href="#">用户协议</a></li>
+                    <li><a href="#">隐私政策</a></li>
+                    <li><a href="#">社区准则</a></li>
+                    <li><a href="#">版权投诉</a></li>
+                </ul>
             </div>
+            
+            <div class="footer-column">
+                <h3>合作伙伴</h3>
+                <ul>
+                    <li><a href="#">广告合作</a></li>
+                    <li><a href="#">内容合作</a></li>
+                    <li><a href="#">创作者计划</a></li>
+                    <li><a href="#">开放平台</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>关注我们</h3>
+                <ul>
+                    <li><a href="#"><i class="fab fa-weibo"></i> 微博</a></li>
+                    <li><a href="#"><i class="fab fa-weixin"></i> 微信</a></li>
+                    <li><a href="#"><i class="fab fa-qq"></i> QQ空间</a></li>
+                    <li><a href="#"><i class="fab fa-bilibili"></i> BiliBili</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>© 2023 知足亭分享网 版权所有 | 京ICP备1248908号</p>
         </div>
     </footer>
 
     <script>
-        // 交互功能实现
-        document.addEventListener('DOMContentLoaded', function() {
-            const video = document.getElementById('mainVideo');
-            const searchInput = document.getElementById('searchInput');
-            const searchBtn = document.getElementById('searchBtn');
-            const functionItems = document.querySelectorAll('.function-item');
-            const codeGrid = document.getElementById('codeGrid');
-            const codeCards = document.querySelectorAll('.share-card');
-            
-            // 模拟视频数据
-            const videoData = {
-                map: {
-                    title: "JavaScript map() 函数详解",
-                    description: "详细介绍map()函数的用法和实际应用场景",
-                    code: `// map() 函数示例
-// 对数组中的每个元素执行指定操作，返回新数组
-
-const numbers = [1, 2, 3, 4, 5];
-
-// 将每个数字乘以2
-const doubled = numbers.map(function(num) {
-  return num * 2;
-});
-
-// 使用箭头函数简化
-const doubledArrow = numbers.map(num => num * 2);
-
-console.log(doubled); // 输出: [2, 4, 6, 8, 10]
-
-// 从对象数组中提取特定属性
-const users = [
-  { name: '张三', age: 25 },
-  { name: '李四', age: 30 },
-  { name: '王五', age: 28 }
-];
-
-const userNames = users.map(user => user.name);
-console.log(userNames); // 输出: ["张三", "李四", "王五"]
-
-// 将数字数组转换为字符串数组
-const stringNumbers = numbers.map(num => num.toString());
-console.log(stringNumbers); // 输出: ["1", "2", "3", "4", "5"]`,
-                    explanation: "map() 函数是JavaScript数组的高阶函数，它创建一个新数组，其结果是该数组中的每个元素调用一次提供的函数后的返回值。"
-                },
-                filter: {
-                    title: "JavaScript filter() 函数详解",
-                    description: "详细介绍filter()函数的用法和实际应用场景",
-                    code: `// filter() 函数示例
-// 根据条件筛选数组元素，返回符合条件的新数组
-
-const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-// 筛选出偶数
-const evenNumbers = numbers.filter(function(num) {
-  return num % 2 === 0;
-});
-
-// 使用箭头函数简化
-const evenNumbersArrow = numbers.filter(num => num % 2 === 0);
-
-console.log(evenNumbers); // 输出: [2, 4, 6, 8, 10]
-
-// 从对象数组中筛选符合条件的元素
-const products = [
-  { name: '笔记本', price: 5000, category: '电子产品' },
-  { name: '椅子', price: 300, category: '家具' },
-  { name: '手机', price: 3000, category: '电子产品' },
-  { name: '桌子', price: 800, category: '家具' }
-];
-
-// 筛选价格低于1000的产品
-const cheapProducts = products.filter(product => product.price < 1000);
-console.log(cheapProducts);
-
-// 筛选电子产品
-const electronicProducts = products.filter(product => product.category === '电子产品');
-console.log(electronicProducts);`,
-                    explanation: "filter() 函数创建一个新数组，其中包含通过所提供函数实现的测试的所有元素。"
+        // 视频数据
+        const videos = [
+            {
+                id: 1,
+                title: "黄山云海奇观，人间仙境不过如此",
+                thumbnail: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                duration: "15:32",
+                views: "125万",
+                likes: "8.2万",
+                description: "登上黄山，亲眼目睹云海翻腾的壮观景象。清晨的阳光穿过云层，洒在山峰之上，仿佛置身仙境。这段视频记录了黄山最美的日出和云海时刻。",
+                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // 示例视频URL
+                creator: {
+                    id: 1,
+                    name: "山水行者",
+                    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                    followers: "125万"
                 }
-            };
-            
-            // 函数列表点击事件
-            functionItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    // 移除所有active类
-                    functionItems.forEach(i => i.classList.remove('active'));
-                    // 添加active类到当前项
-                    this.classList.add('active');
-                    
-                    // 获取函数数据
-                    const functionName = this.getAttribute('data-video');
-                    const functionData = videoData[functionName];
-                    
-                    if (functionData) {
-                        // 更新视频信息
-                        document.getElementById('videoTitle').textContent = functionData.title;
-                        document.getElementById('videoDescription').textContent = functionData.description;
-                        
-                        // 更新代码区域
-                        document.getElementById('codeFileName').textContent = `${functionName}-function.js`;
-                        document.getElementById('codeContent').textContent = functionData.code;
-                        document.getElementById('codeExplanation').textContent = functionData.explanation;
-                        
-                        // 模拟加载新视频
-                        alert(`切换到函数: ${functionName} 的演示视频`);
-                    }
-                });
-            });
-            
-            // 搜索功能
-            searchBtn.addEventListener('click', performSearch);
-            searchInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    performSearch();
+            },
+            {
+                id: 2,
+                title: "西藏自驾游全记录，穿越最美318国道",
+                thumbnail: "https://images.unsplash.com/photo-1544735716-2f8e3f4c4c1a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                duration: "22:45",
+                views: "89万",
+                likes: "6.5万",
+                description: "沿着318国道，从成都出发，一路向西，穿越川藏线，最终抵达拉萨。沿途风景壮丽，经历丰富，是每个旅行者梦寐以求的旅程。",
+                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                creator: {
+                    id: 2,
+                    name: "旅行日记",
+                    avatar: "https://images.unsplash.com/photo-1494790108755-2616c113a1c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                    followers: "89万"
                 }
-            });
-            
-            function performSearch() {
-                const searchTerm = searchInput.value.trim().toLowerCase();
-                if (searchTerm !== '') {
-                    // 在实际应用中，这里应该向服务器发送搜索请求
-                    // 这里我们模拟搜索功能
-                    let found = false;
-                    
-                    codeCards.forEach(card => {
-                        const title = card.querySelector('h3').textContent.toLowerCase();
-                        const description = card.querySelector('p').textContent.toLowerCase();
-                        const tags = card.getAttribute('data-tags').toLowerCase();
-                        
-                        if (title.includes(searchTerm) || description.includes(searchTerm) || tags.includes(searchTerm)) {
-                            card.style.display = 'block';
-                            found = true;
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
-                    
-                    if (!found) {
-                        alert(`未找到包含"${searchTerm}"的代码分享`);
-                        // 显示所有卡片
-                        codeCards.forEach(card => card.style.display = 'block');
-                    }
-                } else {
-                    // 显示所有卡片
-                    codeCards.forEach(card => card.style.display = 'block');
+            },
+            {
+                id: 3,
+                title: "张家界玻璃栈道挑战，你敢来吗？",
+                thumbnail: "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                duration: "10:18",
+                views: "156万",
+                likes: "12.3万",
+                description: "张家界玻璃栈道悬挂在千米高空，脚下是万丈深渊。挑战自己的勇气，体验空中漫步的刺激感。",
+                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                creator: {
+                    id: 3,
+                    name: "极限挑战者",
+                    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                    followers: "156万"
+                }
+            },
+            {
+                id: 4,
+                title: "九寨沟秋色，大自然的调色盘",
+                thumbnail: "https://images.unsplash.com/photo-1599634348095-26fb6c5d8197?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                duration: "18:07",
+                views: "92万",
+                likes: "7.8万",
+                description: "秋天的九寨沟，五彩斑斓，湖水清澈见底，倒映着周围的山色，宛如一幅天然的油画。",
+                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                creator: {
+                    id: 4,
+                    name: "自然观察家",
+                    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                    followers: "92万"
+                }
+            },
+            {
+                id: 5,
+                title: "桂林山水甲天下，阳朔风光美如画",
+                thumbnail: "https://images.unsplash.com/photo-1540202403-a2c2908e9c5e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                duration: "14:23",
+                views: "78万",
+                likes: "5.9万",
+                description: "桂林山水以其独特的喀斯特地貌闻名于世。乘船游览漓江，欣赏两岸奇峰异石，感受'舟行碧波上，人在画中游'的意境。",
+                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                creator: {
+                    id: 5,
+                    name: "风景摄影师",
+                    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                    followers: "78万"
+                }
+            },
+            {
+                id: 6,
+                title: "敦煌莫高窟探秘，千年文化瑰宝",
+                thumbnail: "https://images.unsplash.com/photo-1599634348095-26fb6c5d8197?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                duration: "25:41",
+                views: "63万",
+                likes: "4.7万",
+                description: "敦煌莫高窟是世界文化遗产，保存了从4世纪到14世纪的佛教艺术。走进洞窟，感受千年文化的魅力。",
+                videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                creator: {
+                    id: 6,
+                    name: "文化探索者",
+                    avatar: "https://images.unsplash.com/photo-1494790108755-2616c113a1c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                    followers: "63万"
                 }
             }
+        ];
+
+        // 创作者数据
+        const creators = [
+            {
+                id: 1,
+                name: "山水行者",
+                avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                followers: "125万",
+                videos: "342"
+            },
+            {
+                id: 2,
+                name: "旅行日记",
+                avatar: "https://images.unsplash.com/photo-1494790108755-2616c113a1c1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                followers: "89万",
+                videos: "218"
+            },
+            {
+                id: 3,
+                name: "极限挑战者",
+                avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                followers: "156万",
+                videos: "187"
+            },
+            {
+                id: 4,
+                name: "自然观察家",
+                avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                followers: "92万",
+                videos: "276"
+            }
+        ];
+
+        // 生成视频卡片
+        function renderVideos(videoList = videos) {
+            const videoGrid = document.getElementById('videoGrid');
+            videoGrid.innerHTML = '';
             
-            // 视频控制功能
-            document.getElementById('playBtn').addEventListener('click', function() {
-                alert('开始播放视频');
-                // 实际应用中这里应该控制视频播放
+            videoList.forEach(video => {
+                const videoCard = document.createElement('div');
+                videoCard.className = 'video-card';
+                videoCard.setAttribute('data-video-id', video.id);
+                videoCard.innerHTML = `
+                    <div class="video-thumbnail">
+                        <img src="${video.thumbnail}" alt="${video.title}">
+                        <span class="video-duration">${video.duration}</span>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">${video.title}</h3>
+                        <div class="video-meta">
+                            <span>${video.views} 观看</span>
+                            <span>${video.likes} 点赞</span>
+                        </div>
+                        <div class="creator-info">
+                            <img src="${video.creator.avatar}" alt="${video.creator.name}" class="creator-avatar">
+                            <span class="creator-name">${video.creator.name}</span>
+                            <button class="follow-btn" data-creator-id="${video.creator.id}">关注</button>
+                        </div>
+                    </div>
+                `;
+                videoGrid.appendChild(videoCard);
             });
             
-            document.getElementById('pauseBtn').addEventListener('click', function() {
-                alert('暂停视频播放');
-                // 实际应用中这里应该控制视频暂停
-            });
-            
-            document.getElementById('volumeUp').addEventListener('click', function() {
-                alert('增加音量');
-                // 实际应用中这里应该控制音量增加
-            });
-            
-            document.getElementById('volumeDown').addEventListener('click', function() {
-                alert('减小音量');
-                // 实际应用中这里应该控制音量减小
-            });
-            
-            document.getElementById('fullscreenBtn').addEventListener('click', function() {
-                alert('切换到全屏模式');
-                // 实际应用中这里应该控制全屏
-            });
-            
-            // 复制代码功能
-            document.getElementById('copyBtn').addEventListener('click', function() {
-                // 在实际应用中，这里应该复制代码到剪贴板
-                const codeText = document.getElementById('codeContent').textContent;
-                navigator.clipboard.writeText(codeText).then(() => {
-                    alert('代码已复制到剪贴板');
+            // 添加视频卡片点击事件
+            document.querySelectorAll('.video-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    // 防止点击关注按钮时触发视频播放
+                    if (!e.target.classList.contains('follow-btn')) {
+                        const videoId = this.getAttribute('data-video-id');
+                        openVideoModal(videoId);
+                    }
                 });
             });
             
-            // 收藏功能
-            document.getElementById('favoriteBtn').addEventListener('click', function() {
-                this.classList.toggle('fas');
-                this.classList.toggle('far');
-                if (this.classList.contains('fas')) {
-                    alert('已添加到收藏');
-                } else {
-                    alert('已从收藏移除');
+            // 添加关注按钮事件监听
+            document.querySelectorAll('.follow-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation(); // 阻止事件冒泡，避免触发视频播放
+                    const creatorId = this.getAttribute('data-creator-id');
+                    toggleFollow(creatorId, this);
+                });
+            });
+        }
+
+        // 生成创作者卡片
+        function renderCreators(creatorList = creators) {
+            const creatorsGrid = document.getElementById('creatorsGrid');
+            creatorsGrid.innerHTML = '';
+            
+            creatorList.forEach(creator => {
+                const creatorCard = document.createElement('div');
+                creatorCard.className = 'creator-card';
+                creatorCard.innerHTML = `
+                    <img src="${creator.avatar}" alt="${creator.name}" class="creator-card-avatar">
+                    <h3 class="creator-card-name">${creator.name}</h3>
+                    <div class="creator-card-stats">
+                        <span>${creator.followers} 粉丝</span>
+                        <span>${creator.videos} 作品</span>
+                    </div>
+                    <button class="follow-btn" data-creator-id="${creator.id}">关注</button>
+                `;
+                creatorsGrid.appendChild(creatorCard);
+            });
+            
+            // 添加关注按钮事件监听
+            document.querySelectorAll('.creator-card .follow-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const creatorId = this.getAttribute('data-creator-id');
+                    toggleFollow(creatorId, this);
+                });
+            });
+        }
+
+        // 关注/取消关注功能
+        function toggleFollow(creatorId, button) {
+            if (button.classList.contains('followed')) {
+                button.classList.remove('followed');
+                button.textContent = '关注';
+                // 在实际应用中，这里会发送请求到后端取消关注
+                console.log(`取消关注创作者 ${creatorId}`);
+            } else {
+                button.classList.add('followed');
+                button.textContent = '已关注';
+                // 在实际应用中，这里会发送请求到后端关注创作者
+                console.log(`关注创作者 ${creatorId}`);
+            }
+        }
+
+        // 打开视频播放模态框
+        function openVideoModal(videoId) {
+            const video = videos.find(v => v.id == videoId);
+            if (!video) return;
+            
+            const modal = document.getElementById('videoModal');
+            const videoPlayer = document.getElementById('videoPlayer');
+            const videoDetails = document.getElementById('videoDetails');
+            
+            // 设置视频播放器
+            videoPlayer.innerHTML = `
+                <iframe src="${video.videoUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            `;
+            
+            // 设置视频详情
+            videoDetails.innerHTML = `
+                <div class="video-details-header">
+                    <div>
+                        <h2 class="video-details-title">${video.title}</h2>
+                        <div class="video-stats">
+                            <span>${video.views} 观看</span>
+                            <span>${video.likes} 点赞</span>
+                            <span>${video.duration}</span>
+                        </div>
+                    </div>
+                    <div class="video-actions">
+                        <button class="btn btn-outline"><i class="fas fa-thumbs-up"></i> 点赞</button>
+                        <button class="btn btn-outline"><i class="fas fa-share"></i> 分享</button>
+                        <button class="btn btn-outline"><i class="fas fa-bookmark"></i> 收藏</button>
+                    </div>
+                </div>
+                <div class="video-description">
+                    <p>${video.description}</p>
+                </div>
+                <div class="video-creator">
+                    <img src="${video.creator.avatar}" alt="${video.creator.name}" class="video-creator-avatar">
+                    <div class="video-creator-info">
+                        <div class="video-creator-name">${video.creator.name}</div>
+                        <div class="video-creator-followers">${video.creator.followers} 粉丝</div>
+                    </div>
+                    <button class="btn btn-primary follow-btn-modal" data-creator-id="${video.creator.id}">关注</button>
+                </div>
+            `;
+            
+            // 添加模态框内关注按钮事件
+            const followBtnModal = videoDetails.querySelector('.follow-btn-modal');
+            followBtnModal.addEventListener('click', function() {
+                toggleFollow(video.creator.id, this);
+            });
+            
+            // 显示模态框
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // 防止背景滚动
+        }
+
+        // 关闭视频播放模态框
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // 恢复背景滚动
+            
+            // 停止视频播放
+            const iframe = modal.querySelector('iframe');
+            if (iframe) {
+                iframe.src = iframe.src; // 重新加载iframe以停止视频
+            }
+        }
+
+        // 搜索功能
+        function setupSearch() {
+            const searchInput = document.getElementById('searchInput');
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                
+                if (searchTerm === '') {
+                    renderVideos();
+                    renderCreators();
+                    return;
+                }
+                
+                // 搜索视频
+                const filteredVideos = videos.filter(video => 
+                    video.title.toLowerCase().includes(searchTerm) || 
+                    video.creator.name.toLowerCase().includes(searchTerm)
+                );
+                
+                // 搜索创作者
+                const filteredCreators = creators.filter(creator => 
+                    creator.name.toLowerCase().includes(searchTerm)
+                );
+                
+                renderVideos(filteredVideos);
+                renderCreators(filteredCreators);
+            });
+        }
+
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', function() {
+            renderVideos();
+            renderCreators();
+            setupSearch();
+            
+            // 关闭模态框事件
+            document.getElementById('closeModal').addEventListener('click', closeVideoModal);
+            
+            // 点击模态框背景关闭
+            document.getElementById('videoModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeVideoModal();
+                }
+            });
+            
+            // ESC键关闭模态框
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeVideoModal();
                 }
             });
         });
